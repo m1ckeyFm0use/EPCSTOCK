@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winkelwagen | ElectroStock</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; }
+    li { margin-bottom: 6px; }
+    button { margin-left: 8px; }
+  </style>
+</head>
+
+<body>
+  <h1>🛒 Jouw winkelwagen</h1>
+  <ul id="cart-items"></ul>
+  <p id="total"></p>
+  <a href="index.html">⬅️ Verder shoppen</a>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const list = document.getElementById('cart-items');
+    const totalText = document.getElementById('total');
+
+    let totaal = 0;
+    cart.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.textContent = `${item.name} – €${item.price}`;
+      // verwijderknop
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'Verwijder';
+      delBtn.onclick = () => { removeItem(index); };
+      li.appendChild(delBtn);
+      list.appendChild(li);
+      totaal += item.price;
+    });
+
+    totalText.textContent = `Totaal: €${totaal}`;
+
+    // item verwijderen
+    function removeItem(i) {
+      cart.splice(i, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      location.reload(); // pagina herladen om lijst bij te werken
+    }
+  </script>
+</body>
+</html>
