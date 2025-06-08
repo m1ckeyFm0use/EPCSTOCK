@@ -38,37 +38,29 @@
 
   <!-- Winkelwagen-logica -->
   <script>
-    /* 1. Productenlijst */
-    const producten = [
-      { naam: "Laptop A", prijs: 899 },
-      { naam: "Oplader B", prijs: 29  },
-      { naam: "Monitor C", prijs: 199 },
-      { naam: "Koptelefoon D", prijs: 99 }
-    ];
-
-    /* 2. Toon alle producten dynamisch */
+fetch('producten.json')
+  .then(res => res.json())
+  .then(producten => {
     const container = document.getElementById("products");
 
     producten.forEach(product => {
       const div = document.createElement("div");
-      div.classList.add("product");
       div.innerHTML = `
         <h3>${product.naam}</h3>
-        <p>€${product.prijs}</p>
-        <button onclick="addToCart('${product.naam}', ${product.prijs})">
-          Toevoegen aan winkelwagen
-        </button>
+        <p>Prijs: €${product.prijs}</p>
+        <button onclick='voegToe("${product.naam}", ${product.prijs})'>In winkelwagen</button>
       `;
       container.appendChild(div);
     });
+  });
 
-    /* 3. Functie om items in localStorage op te slaan */
-    function addToCart(name, price) {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart.push({ name, price });
-      localStorage.setItem('cart', JSON.stringify(cart));
-      alert(`${name} is toegevoegd aan je winkelwagen!`);
-    }
-  </script>
+function voegToe(naam, prijs) {
+  let winkelwagen = JSON.parse(localStorage.getItem("winkelwagen")) || [];
+  winkelwagen.push({ naam, prijs });
+  localStorage.setItem("winkelwagen", JSON.stringify(winkelwagen));
+  alert(`${naam} is toegevoegd aan je winkelwagen.`);
+}
+</script>
+
 </body>
 </html>
