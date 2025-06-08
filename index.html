@@ -1,61 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ElectroStock</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; }
+    .product { border: 1px solid #ddd; padding: 16px; margin-bottom: 12px; }
+    .product h3 { margin: 0 0 8px; }
+    .product button { padding: 6px 12px; }
+    #cart-link { display: inline-block; margin-top: 30px; }
+  </style>
 </head>
+
 <body>
   <h1>Welkom bij ElectroStock!</h1>
-  <p>We zijn bezig met de opbouw van onze site. Neem gerust contact met ons op via de chat rechtsonder.</p>
+  <p>Klik op een product om het in je winkelwagen te stoppen.</p>
 
-<!-- Tawk.to live chat script -->
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6844e2d0994a19190e268c62/1it6hbvr4';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
-<!-- index.html -->
-<div id="products"></div>
-  
-<script>
-  const producten = [
-    { naam: "Laptop A", prijs: 899 },
-    { naam: "Oplader B", prijs: 29 },
-    { naam: "Monitor C", prijs: 199 },
-    { naam: "Koptelefoon D", prijs: 99 },
-  ];
+  <!-- Hier komen de producten dynamisch in -->
+  <div id="products"></div>
 
-  const container = document.getElementById("products");
+  <!-- Link naar de winkelwagen -->
+  <a id="cart-link" href="cart.html">🛒 Bekijk winkelwagen</a>
 
-  producten.forEach(product => {
-    const div = document.createElement("div");
-    div.classList.add("product");
-    div.innerHTML = `
-      <h3>${product.naam}</h3>
-      <p>€${product.prijs}</p>
-      <button onclick="addToCart('${product.naam}', ${product.prijs})">
-        Toevoegen aan winkelwagen
-      </button>
-    `;
-    container.appendChild(div);
-  });
+  <!-- Tawk.to live-chat (laten staan) -->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='s1.src='https://embed.tawk.to/6844e2d0994a19190e268c62/1it6hbvr4';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
 
-  function addToCart(name, price) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({ name, price });
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(name + ' toegevoegd aan winkelwagen!');
-  }
-</script>
+  <!-- Winkelwagen-logica -->
+  <script>
+    /* 1. Productenlijst */
+    const producten = [
+      { naam: "Laptop A", prijs: 899 },
+      { naam: "Oplader B", prijs: 29  },
+      { naam: "Monitor C", prijs: 199 },
+      { naam: "Koptelefoon D", prijs: 99 }
+    ];
 
+    /* 2. Toon alle producten dynamisch */
+    const container = document.getElementById("products");
+
+    producten.forEach(product => {
+      const div = document.createElement("div");
+      div.classList.add("product");
+      div.innerHTML = `
+        <h3>${product.naam}</h3>
+        <p>€${product.prijs}</p>
+        <button onclick="addToCart('${product.naam}', ${product.prijs})">
+          Toevoegen aan winkelwagen
+        </button>
+      `;
+      container.appendChild(div);
+    });
+
+    /* 3. Functie om items in localStorage op te slaan */
+    function addToCart(name, price) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name, price });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${name} is toegevoegd aan je winkelwagen!`);
+    }
+  </script>
 </body>
 </html>
