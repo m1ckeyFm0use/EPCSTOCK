@@ -1,7 +1,7 @@
 [
   { "naam": "Laptop", "prijs": 899 },
   { "naam": "Oplader", "prijs": 29 },
-  { "naam": "Wasmachine", "prijs": 499,00 },
+  { "naam": "Wasmachine", "prijs": 499.00 },
   { "naam": "Monitor", "prijs": 199 },
   { "naam": "Koptelefoon", "prijs": 99 }
 ]
