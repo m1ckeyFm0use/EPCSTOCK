@@ -25,6 +25,37 @@ s0.parentNode.insertBefore(s1,s0);
 <!--End of Tawk.to Script-->
 <!-- index.html -->
 <div id="products"></div>
+  
+<script>
+  const producten = [
+    { naam: "Laptop A", prijs: 899 },
+    { naam: "Oplader B", prijs: 29 },
+    { naam: "Monitor C", prijs: 199 },
+    { naam: "Koptelefoon D", prijs: 99 },
+  ];
+
+  const container = document.getElementById("products");
+
+  producten.forEach(product => {
+    const div = document.createElement("div");
+    div.classList.add("product");
+    div.innerHTML = `
+      <h3>${product.naam}</h3>
+      <p>€${product.prijs}</p>
+      <button onclick="addToCart('${product.naam}', ${product.prijs})">
+        Toevoegen aan winkelwagen
+      </button>
+    `;
+    container.appendChild(div);
+  });
+
+  function addToCart(name, price) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({ name, price });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(name + ' toegevoegd aan winkelwagen!');
+  }
+</script>
 
 </body>
 </html>
